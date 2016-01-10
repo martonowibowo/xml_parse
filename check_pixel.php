@@ -7,7 +7,7 @@ $fp = fopen('url.file', 'w');
 foreach($output as $xmlfle)
 {
 //Parse XML File-----------------------------------//
-$xmlfile = simplexml_load_file($xmlfle);
+$xmlfile = simplexml_load_file("uploads/".$xmlfle.");
 $xmlsku=$xmlfile->content->system->product_numbers->prodnum;
 echo $xmlsku;
 $xmlimages = $xmlfile->images;
