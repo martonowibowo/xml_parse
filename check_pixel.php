@@ -1,8 +1,8 @@
 <html>
 <body>
-<pre>
+
 <?php
-exec("ls -a | grep .xml",$output);
+exec("ls -a uploads/| grep .xml",$output);
 $fp = fopen('url.file', 'w');
 foreach($output as $xmlfle)
 {
@@ -19,18 +19,21 @@ foreach ($xmlimages as $xmlimage) {
 		// print_r($image);
 		if($image->pixel_height > 600 && $image->pixel_height < 2000 ) { 
 			//echo $image->image_url_http . ' => ' . $image->pixel_height . '<br/>';
-			$url = "wget -P $xmlsku $image->image_url_http\n";
+			$url = "wget -P download/$xmlsku $image->image_url_http\n";
 			//echo $url;
 		  fwrite($fp, $url);
 		}
 	}
 }
 }
+fwrite($fp, "zip -r download.zip download");
 fclose($fp);
-echo "<pre>download complete</pre>";
+exec("chmod +x url.file");
+exec("./url.file ");
+exec("rm -rf uploads/* | rm -rf url.file | rm -rf download/");
+echo '<h4><a href="http://172.16.0.20/xml_image/download.zip">Download all image in zip</h4>';
 //---------------------------------------------------------------------------------------//
 
 ?>
-</pre>
 </body>
 </html>
