@@ -31,7 +31,7 @@ fclose($fp);
 exec("chmod +x url.file");
 exec("./url.file ");
 exec("rm -rf uploads/* | rm -rf url.file | rm -rf download/");
-echo '<h4><a href="http://172.16.0.20/xml_image/download.zip">Download all image in zip</h4>';
+echo '<h4><a href="http://172.16.0.20/xml_image/download.zip" target="_blank">Download all image in zip</h4>';
 //---------------------------------------------------------------------------------------//
 
 ?>

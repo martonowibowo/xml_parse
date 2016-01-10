@@ -36,10 +36,11 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 ?>
 
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8" />
 	<title>Multiple File Upload with PHP - Demo</title>
+	<script src="jquery.js" type="text/javascript"></script>
 <style type="text/css">
 a{ text-decoration: none; color: #333}
 h1{ font-size: 1.9em; margin: 10px 0}
@@ -113,9 +114,8 @@ input[type="submit"]:hover {
 input[type="submit"]:active {
 	box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);
 }
-#loadingimg {
-	display:none;
-}
+
+
 </style>
 
 </head>
@@ -146,8 +146,18 @@ input[type="submit"]:active {
 		<p id="pixel"></p>
 		<img id="loadingimg" src="gif-load.gif"/>   
 		<script>
+		
+		$(function() {
+			$("#loadingimg").hide();
+		});
 function loadDoc() {
 	$("#loadingimg").show();
+	$.post('check_pixel.php',{},function(data) {
+		$("#loadingimg").hide();
+		$("#pixel").html(data);
+	});
+	
+	/*
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -158,10 +168,11 @@ function loadDoc() {
   xhttp.open("POST", "check_pixel.php", true);
   
   xhttp.send();
+  */
 }
 </script>
 	
-		<h4><a href="http://172.16.0.20/xml_image/download/">Path Image Folder</a></h4>
+		<h4><a href="http://172.16.0.20/xml_image/download/" target="_blank">Path Image Folder</a></h4>
 		<?php
 		exec("ls -a uploads/ | grep .xml",$output);
 		foreach($output as $filelist)
