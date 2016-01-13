@@ -14,13 +14,17 @@ if (!$conn) {
 $sql = "SELECT url FROM url";
 $result = mysqli_query($conn, $sql);
 
+$data = array();
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
       list($width, $height, $type, $attr) = getimagesize($row["url"]);
 	  echo "Height: " .$height. "url: " . $row["url"]. "<br />";
-	  $sql_insert = 'INSERT INTO url_fix (url) VALUES ("'. $row[url] .'")';
-		mysqli_query($conn, $sql_insert);
+	 
+	 $data[] = $row["url"];
+	  
+	  //$sql_insert = 'INSERT INTO url_fix (url) VALUES ("'. $row[url] .'")';
+		//mysqli_query($conn, $sql_insert);
 	  //echo "url: " . $row["url"]. "Width: " .$width."<br>" ;
     }
 } else {
@@ -28,6 +32,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 mysqli_close($conn);
+print_r($data);
 
 
 //list($width, $height, $type, $attr) = getimagesize("http://h10003.www1.hp.com/digmedialib/prodimg/lowres/c04898865.png");
