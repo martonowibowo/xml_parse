@@ -1,8 +1,11 @@
 <html>
 <body>
+<pre>
 <?php
 
 $xmlfile = simplexml_load_file('T8V72PA.xml');
+$xmlsku=$xmlfile->content->system->product_numbers->prodnum;
+echo $xmlsku;
 $xmlimages = $xmlfile->images;
 // print_r($xmlfile->images->image);
 $fp = fopen('url.file', 'w');
@@ -27,7 +30,7 @@ foreach ($xmlimages as $xmlimage) {
 
 fclose($fp);
 
-$command="chmod +x url.file";
+/*$command="chmod +x url.file";
 exec($command, $output);
 exec("./url.file");
 
@@ -46,5 +49,6 @@ echo '</pre>';
 */
 echo "<pre>download complete</pre>";
 ?>
+</pre>
 </body>
 </html>
