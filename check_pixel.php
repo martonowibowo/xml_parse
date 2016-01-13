@@ -1,55 +1,21 @@
+<pre>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "secure";
-$dbname = "xml_image";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT url FROM url";
-$result = mysqli_query($conn, $sql);
-
-$data = array();
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-      list($width, $height, $type, $attr) = getimagesize($row["url"]);
-	  //echo "Height: " .$height. "url: " . $row["url"]. "<br />";
-	 
-	 if ($height > 100 && $height < 400)
-	 {
-		 $data[] = $row["url"];
-	 }
-	 
-	  
-    }
-} else {
-    echo "0 results";
-}
-mysqli_close($conn);
-//do wget in server	
-
-//$fp = fopen('newfile.txt', 'w');
-//fwrite($fp, print_r($data, TRUE));
-//fclose($fp);
-$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-foreach($data as $value){ 
-    // echo $value; 
-	$txt= "$value\n";	
-	echo $value . '<br/>';
-    fwrite($myfile, $txt);
-
+$xmlfile = simplexml_load_file('T8V72PA.xml');
+$xmlimages = $xmlfile->images;
+// print_r($xmlfile->images->image);
+foreach ($xmlimages as $xmlimage) {
+	// print_r($xmlimage);
+	foreach ( $xmlimage as $image ) {
+		// print_r($image);
+		if($image->pixel_height > 600) { 
+			// echo $image->image_url_https . ' => ' . $image->pixel_height . '<br/>';
+			echo '<img src="' . $image->image_url_https . '" width="600" /> <br/>';
+		}
 	}
-	    fclose($myfile);
-//$output = shell_exec('ls -lart');
-//echo "<pre>$output</pre>";
-
-//$img = get_headers("http://h10003.www1.hp.com/digmedialib/prodimg/lowres/c04898865.png", 1);
-//print $img["Content-Length"];
-
+}
+//$xml = simplexml_load_string('$xmlfile');
+//$json = json_encode($xml);
+//$array = json_decode($json,TRUE);
+//print_r($array);
 ?>
+</pre>
