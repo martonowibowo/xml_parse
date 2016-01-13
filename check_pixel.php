@@ -33,13 +33,19 @@ if (mysqli_num_rows($result) > 0) {
 }
 mysqli_close($conn);
 //do wget in server	
+
+//$fp = fopen('newfile.txt', 'w');
+//fwrite($fp, print_r($data, TRUE));
+//fclose($fp);
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
 foreach($data as $value){ 
-//$output = shell_exec('wget '$value'');
-    echo $value; 
-?>
-</br>
-<?php
-}
+    // echo $value; 
+	$txt= "$value\n";	
+	echo $value . '<br/>';
+    fwrite($myfile, $txt);
+
+	}
+	    fclose($myfile);
 //$output = shell_exec('ls -lart');
 //echo "<pre>$output</pre>";
 
