@@ -21,7 +21,12 @@ if (mysqli_num_rows($result) > 0) {
       list($width, $height, $type, $attr) = getimagesize($row["url"]);
 	  echo "Height: " .$height. "url: " . $row["url"]. "<br />";
 	 
-	 $data[] = $row["url"];
+	 if ($height > 100 && $height < 400)
+	 {
+		 $data[] = $row["url"];
+	 }
+	 
+	 
 	  
 	  //$sql_insert = 'INSERT INTO url_fix (url) VALUES ("'. $row[url] .'")';
 		//mysqli_query($conn, $sql_insert);
