@@ -24,6 +24,12 @@ foreach ($xmlimages as $xmlimage) {
 			//echo $url;
 		  fwrite($fp, $url);
 		}
+		else if($image->pixel_height >= 400 && $image->pixel_height <= 5000)
+			{
+				$url = "wget -P download/$xmlsku $image->image_url_http\n";
+				//echo $url;
+			  fwrite($fp, $url);
+			}
 	}
 }
 }
