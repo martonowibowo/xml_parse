@@ -2,6 +2,7 @@
 <body>
 
 <?php
+exec("rm -rf download.zip");
 exec("ls -a uploads/| grep .xml",$output);
 $fp = fopen('url.file', 'w');
 foreach($output as $xmlfle)
@@ -17,7 +18,7 @@ foreach ($xmlimages as $xmlimage) {
 	// print_r($xmlimage);
 	foreach ( $xmlimage as $image ) {
 		// print_r($image);
-		if($image->pixel_height > 600 && $image->pixel_height < 2000 ) { 
+		if($image->pixel_height >= 600 && $image->pixel_height <= 2000 ) { 
 			//echo $image->image_url_http . ' => ' . $image->pixel_height . '<br/>';
 			$url = "wget -P download/$xmlsku $image->image_url_http\n";
 			//echo $url;
